@@ -1,12 +1,11 @@
-import { Text, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import Layout from "../Layout";
+import TextInputField from "../Components/TextInputField";
 
 export default function LoginScreen() {
   return (
     <Layout title="Login">
-      <View>
-        <Text className="text-blue-950">Login Screen</Text>
-      </View>
+      <TextInputField label="user"></TextInputField>
     </Layout>
   );
 }
