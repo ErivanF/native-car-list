@@ -10,7 +10,7 @@ interface Props {
 
 export default function Layout({ title, children, onReturn }: Props) {
   return (
-    <View className="flex-1 items-center  bg-black">
+    <View className="flex-1 items-center  bg-white">
       <View className="flex flex-row justify-between p-3 bg-purple-950 text-center items-center w-full pt-9">
         <Text className="text-white text-2xl">{title}</Text>
         {onReturn && (

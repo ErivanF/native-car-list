@@ -4,9 +4,12 @@ interface Props extends TextInputProps {
 }
 export default function TextInputField({ label, ...inputProps }: Props) {
   return (
-    <View className="p-2">
-      <Text className="text-white">{label}</Text>
-      <TextInput {...inputProps} />
+    <View className=" m-auto p-2  w-full text-center rounded ">
+      <Text className="text-purple-800 text-center text-xl">{label}</Text>
+      <TextInput
+        className="bg-white rounded-md border-purple-900 border-2"
+        {...inputProps}
+      />
     </View>
   );
 }
