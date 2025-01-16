@@ -1,11 +1,27 @@
 import { Text, TouchableWithoutFeedback, View } from "react-native";
 import Layout from "../Layout";
 import TextInputField from "../Components/TextInputField";
-import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import Login from "../Services/APILogin";
 
 export default function LoginScreen() {
   const { register, setValue, handleSubmit } = useForm();
+  const [error, setError] = useState("");
+  const submitData = async (data: FieldValues) => {
+    try {
+      const { user, password } = data;
+      if (!user || !password) {
+        throw new Error("Usuário e senha são obrigatórios");
+      }
+      Login({ user, password }).then((response) => {
+        console.log(response);
+      });
+    } catch (err: any) {
+      console.log("Erro: " + err);
+      setError(err.message);
+    }
+  };
   useEffect(() => {
     register("user");
     register("password");
@@ -25,12 +41,24 @@ export default function LoginScreen() {
             secureTextEntry
             onChangeText={(text) => setValue("password", text)}
           ></TextInputField>
+          <View>
+            <Text className="mt-2 text-red-500 text-sm">{error}</Text>
+          </View>
           <TouchableWithoutFeedback
-            onPress={handleSubmit((data) => console.log(data))}
+            onPress={handleSubmit((data) => submitData(data))}
           >
             <View className="mt-4 px-4 py-2 bg-purple-900 rounded-lg w-40">
               <Text className="text-xl text-center font-bold text-white ">
                 Entrar
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={handleSubmit((data) => submitData(data))}
+          >
+            <View className="mt-4 px-4 py-2 bg-purple-900 rounded-lg w-40">
+              <Text className="text-xl text-center font-bold text-white ">
+                Home
               </Text>
             </View>
           </TouchableWithoutFeedback>
