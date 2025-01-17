@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 export type StackParamList = {
   Login: undefined;
   Home: undefined;
+  Model: { brandId: number };
 };
 export type NavigationProps = NativeStackScreenProps<StackParamList>;
 
@@ -21,6 +22,10 @@ export interface LoginResponse {
   user?: IUser;
 }
 export interface IBrand {
+  codigo: number;
+  nome: string;
+}
+export interface IModel {
   codigo: number;
   nome: string;
 }
