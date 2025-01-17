@@ -4,26 +4,30 @@ import TextInputField from "../Components/TextInputField";
 import { FieldValues, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Login from "../Services/APILogin";
-import { useNavigation } from "@react-navigation/native";
-import HomeScreen from "./HomeScreen";
 import { NavigationProps } from "../Types";
+import { UseUser } from "../Providers/UserProvider";
 
 export default function LoginScreen({ navigation }: NavigationProps) {
   const { register, setValue, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const userContext = UseUser();
   const submitData = async (data: FieldValues) => {
-    try {
-      const { user, password } = data;
-      if (!user || !password) {
-        throw new Error("Usuário e senha são obrigatórios");
+    const { user, password } = data;
+
+    Login({ user, password }).then((response) => {
+      if (response.error) {
+        console.log("error");
+        if (response.message) {
+          setError(response.message);
+          return;
+        }
       }
-      Login({ user, password }).then((response) => {
-        console.log(response);
-      });
-    } catch (err: any) {
-      console.log("Erro: " + err);
-      setError(err.message);
-    }
+      if (response.user) {
+        userContext.set(response.user);
+        console.log("funcionou");
+        navigation.push("Home");
+      }
+    });
   };
   useEffect(() => {
     register("user");
@@ -53,17 +57,6 @@ export default function LoginScreen({ navigation }: NavigationProps) {
             <View className="mt-4 px-4 py-2 bg-purple-900 rounded-lg w-40">
               <Text className="text-xl text-center font-bold text-white ">
                 Entrar
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              navigation.push("Home");
-            }}
-          >
-            <View className="mt-4 px-4 py-2 bg-purple-900 rounded-lg w-40">
-              <Text className="text-xl text-center font-bold text-white ">
-                Home
               </Text>
             </View>
           </TouchableWithoutFeedback>
