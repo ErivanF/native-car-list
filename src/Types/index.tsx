@@ -11,3 +11,12 @@ export interface IUser {
   name: string;
   token: string;
 }
+export interface LoginProps {
+  user: string;
+  password: string;
+}
+export interface LoginResponse {
+  error: boolean;
+  message?: string;
+  user?: IUser;
+}

@@ -1,9 +1,6 @@
-import { DataURL, LoginURL } from "./URLS";
+import { LoginProps, LoginResponse } from "../Types";
+import { LoginURL } from "./URLS";
 
-interface LoginProps {
-  user: string;
-  password: string;
-}
 export default async function Login({ user, password }: LoginProps) {
   const body = JSON.stringify({ user, password });
   const response = await fetch(LoginURL, {
@@ -15,7 +12,5 @@ export default async function Login({ user, password }: LoginProps) {
     body: body,
   });
   const data = await response.json();
-  console.log("Body: ", body);
-  console.log("API Response: ", data);
-  throw new Error("Error test");
+  return data as LoginResponse;
 }
