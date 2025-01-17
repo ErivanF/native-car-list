@@ -24,7 +24,6 @@ export default function LoginScreen({ navigation }: NavigationProps) {
       }
       if (response.user) {
         userContext.set(response.user);
-        console.log("funcionou");
         navigation.push("Home");
       }
     });

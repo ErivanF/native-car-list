@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import Layout from "../Layout";
 import { ScrollView, Text } from "react-native";
-import APIBrandList from "../Services/APIBrandList";
 import { UseUser } from "../Providers/UserProvider";
-import { IBrand } from "../Types";
+import { IBrand, NavigationProps } from "../Types";
 import BrandCard from "../Components/BrandCard";
+import BrandList from "../Services/APIBrandList";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: NavigationProps) {
   const [list, setList] = useState<IBrand[]>([]);
-  const loadList = async () => {
-    setList(await APIBrandList());
+  const load = async () => {
+    setList(await BrandList());
   };
   useEffect(() => {
-    loadList();
+    load();
   }, []);
   const userContext = UseUser();
+
+  const navigate = (code: number) => {
+    navigation.push("Model", { brandId: code });
+  };
   return (
     <Layout title="Home">
       <Text className="text-3xl">
@@ -22,7 +26,7 @@ export default function HomeScreen() {
       </Text>
       <ScrollView className="w-10/12">
         {list.map((brand) => (
-          <BrandCard {...brand} key={brand.codigo} />
+          <BrandCard key={brand.codigo} brand={brand} navigate={navigate} />
         ))}
       </ScrollView>
     </Layout>

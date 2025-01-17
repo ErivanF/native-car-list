@@ -5,6 +5,7 @@ import HomeScreen from "./src/Screeens/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackParamList } from "./src/Types";
 import UserProvider from "./src/Providers/UserProvider";
+import ModelScreen from "./src/Screeens/ModelScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator<StackParamList>();
@@ -15,7 +16,6 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Model" component={ModelScreen} />
-          {}
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
