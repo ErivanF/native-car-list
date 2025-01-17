@@ -20,3 +20,7 @@ export interface LoginResponse {
   message?: string;
   user?: IUser;
 }
+export interface IBrand {
+  codigo: number;
+  nome: string;
+}
