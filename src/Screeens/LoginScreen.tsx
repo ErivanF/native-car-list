@@ -4,8 +4,11 @@ import TextInputField from "../Components/TextInputField";
 import { FieldValues, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Login from "../Services/APILogin";
+import { useNavigation } from "@react-navigation/native";
+import HomeScreen from "./HomeScreen";
+import { NavigationProps } from "../Types";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: NavigationProps) {
   const { register, setValue, handleSubmit } = useForm();
   const [error, setError] = useState("");
   const submitData = async (data: FieldValues) => {
@@ -54,7 +57,9 @@ export default function LoginScreen() {
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
-            onPress={handleSubmit((data) => submitData(data))}
+            onPress={() => {
+              navigation.push("Home");
+            }}
           >
             <View className="mt-4 px-4 py-2 bg-purple-900 rounded-lg w-40">
               <Text className="text-xl text-center font-bold text-white ">
